@@ -6,11 +6,21 @@ NodeStorage interface for [SSDB](http://ssdb.io)
 
 # Installation
 
+First install libmsgpack including headers, on Ubuntu this would be:
+
 ```bash
-$ pip install sentry-ssdb-nodestore
+$ apt-get install libmsgpack-dev
+```
+
+Then install the python package from github (inside the sentry virtualenv):
+```bash
+$ source bin/active
+$ pip install git+https://github.com/felixbuenemann/sentry-ssdb-nodestore
 ```
 
 # Configuration
+
+Add this to your `sentry.conf.py`:
 
 ```python
 SENTRY_NODESTORE = 'sentry_ssdb_nodestore.backend.SSDBNodeStorage'
@@ -21,7 +31,8 @@ SENTRY_NODESTORE_OPTIONS = {
     'ttl': None,
     # Expire keys after one month (specify in seconds)
     # 'ttl': 60*60*24*30,
-    # Delete this many keys at once during manual cleanup
+    # Delete this many keys at once during manual cleanup,
+    # this does not limit the amount of keys deleted!
     'batchsize:': 1000,
 }
 ```
